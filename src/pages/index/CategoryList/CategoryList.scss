@@ -1,0 +1,37 @@
+.category-list-container {
+  display: flex;
+  white-space: nowrap; // 保证子元素不换行
+  overflow-x: scroll; // 开启横向滚动
+  -webkit-overflow-scrolling: touch; // iOS滚动优化
+  height: 50px;
+  align-items: center;
+
+  // 隐藏滚动条
+  &::-webkit-scrollbar {
+    display: none; // 隐藏滚动条（H5 和部分环境支持）
+  }
+
+  // 小程序隐藏滚动条（横向滚动本身不显示）
+  scrollbar-width: none; // Firefox 支持
+
+  .category-list-container-item {
+    padding: 0.1rem 0.5rem;
+    margin-right: 6px;
+    font-weight: 700;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    color: #363636;
+    text-decoration: none;
+    transition: all .3s ease-out 0s;
+    overflow-wrap: break-word;
+    -webkit-user-drag: none;
+
+    &.selected {
+      background-color: #425AEF;
+      color: #ffffff;
+    }
+  }
+
+}

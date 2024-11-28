@@ -1,0 +1,63 @@
+.post-list-container {
+  display: flex;
+  flex-direction: column;
+
+  .post-list-container-item {
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 12px;
+    border: 1px solid #e3e8f7;
+    box-shadow: 0 8px 16px -4px #2c2d300c;
+    background-color: #fff;
+    display: block;
+    position: relative;
+    clip-path: inset(0 0 0 0 round 12px);
+
+    .post-list-container-item-cover {
+      min-width: 100%;
+      -webkit-transform-style: preserve-3d;
+      transition: .3s ease-in-out;
+      min-height: 100%;
+      user-select: none;
+      border-radius: 12px 12px 0 0;
+      width: 100%;
+      height: 200px;
+    }
+    .post-list-container-item-content {
+      padding: 10px 15px;
+      line-height: 26px;
+      font-weight: bold;
+      color: #363636;
+      transition: .3s;
+      font-size: 19px;
+      overflow-wrap: break-word;
+      -webkit-user-drag: none;
+      word-wrap: break-word; // 支持非英文内容换行
+      word-break: break-word; // 强制换行（处理英文单词）
+      white-space: normal; // 默认正常换行
+    }
+
+    .post-list-container-item-tooter {
+      padding: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .post-list-container-item-category {
+        flex: 1;
+        padding-right: 10px;
+
+        .post-list-container-item-category-item {
+          color: #363636;
+          font-size: .8rem;
+          margin-right: 8px;
+        }
+
+      }
+
+      .post-list-container-item-publish-time {
+        color: #363636;
+        font-size: .8rem;
+      }
+    }
+  }
+}

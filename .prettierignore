@@ -1,0 +1,11 @@
+/dist/*
+.local
+.output.js
+/node_modules/**
+/src/uni_modules/**
+
+
+*.yaml
+*.md
+*.json
+dist
