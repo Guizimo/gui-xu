@@ -77,7 +77,7 @@ const Index = () => {
           <CategoryList activeCategory={activeCategory} onChange={changeCategory} />
           <PostList activeCategory={activeCategory} gotoDetail={() => {}} />
         </View>
-        <GlobalLoading visible={loading} />
+        <GlobalLoading visible={loading} isInit />
       </View>
     </ConfigProvider>
   );

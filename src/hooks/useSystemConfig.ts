@@ -29,7 +29,7 @@ const useFetchConfig = (): FetchConfigResult => {
           const themeRes = await getConfigByName(`${tempConfig.activeTheme}-configMap`);
           tempConfig.themeTop = safeParse(themeRes?.data?.top)
         }
-        console.log(tempConfig, '55555')
+        console.log('systemInfo:', tempConfig)
         setSysTemConfig(tempConfig)
       } catch (e) {
       } finally {

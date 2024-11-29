@@ -3,6 +3,7 @@ import './PostList.scss';
 import { getPosts } from '../../../api/post';
 import { useEffect, useState } from 'react';
 import { generateRandomImgSrc, getDataInfo } from '../../../utils/tools';
+import GlobalLoading from '../../../components/GlobalLoading/GlobalLoading';
 
 interface PostListProps {
   activeCategory: string;
@@ -26,8 +27,10 @@ const PostList = (props: PostListProps) => {
   const { activeCategory, gotoDetail } = props;
 
   const [postList, setPostList] = useState<PostItem[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
+    setLoading(true);
     try {
       const { items } = await getPosts(activeCategory);
       const tempPostList: PostItem[] = items.map((item: any) => {
@@ -47,6 +50,8 @@ const PostList = (props: PostListProps) => {
       setPostList(tempPostList);
     } catch (e) {
       console.log(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -55,6 +60,11 @@ const PostList = (props: PostListProps) => {
       fetchData();
     }
   }, [activeCategory]);
+
+
+  if (loading) {
+    return <GlobalLoading visible={loading} message="加速扒拉中..." />
+  }
 
   return (
     <View className="post-list-container">
