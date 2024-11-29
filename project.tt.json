@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "./",
-  "projectname": "xu-taro",
+  "projectname": "gui-xu",
   "description": "Halo博客",
   "appid": "touristappid",
   "setting": {

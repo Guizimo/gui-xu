@@ -5,6 +5,10 @@
   -webkit-overflow-scrolling: touch; // iOS滚动优化
   height: 50px;
   align-items: center;
+  position: sticky;
+  z-index: 1000;
+  background-color: #f7f9fe;
+  border-top: 1px solid #e3e8f7;
 
   // 隐藏滚动条
   &::-webkit-scrollbar {

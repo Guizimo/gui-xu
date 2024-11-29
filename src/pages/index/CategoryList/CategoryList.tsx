@@ -2,6 +2,7 @@ import { View } from '@tarojs/components';
 import './CategoryList.scss';
 import { useEffect, useState } from 'react';
 import { getCategoryList } from '../../../api/post';
+import useAppConfig from '../../../hooks/useAppConfig';
 
 interface CategoryListProps {
   activeCategory: string;
@@ -16,6 +17,15 @@ interface CategoryItem {
 const CategoryList = (props: CategoryListProps) => {
   const { onChange, activeCategory } = props;
   const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
+  const { statusBarHeight, navBarHeight } = useAppConfig();
+  const [navStyle, setNavStyle] = useState({});
+
+
+  useEffect(() => {
+    if (statusBarHeight) {
+      setNavStyle({ top: `${statusBarHeight + navBarHeight}px` });
+    }
+  }, [statusBarHeight]);
 
   const fetchData = async () => {
     try {
@@ -36,7 +46,7 @@ const CategoryList = (props: CategoryListProps) => {
   }, []);
 
   return (
-    <View className="category-list-container">
+    <View className="category-list-container" style={navStyle}>
       {categoryList.map((item: CategoryItem) => (
         <View
           className={`category-list-container-item ${activeCategory === item.id ? 'selected' : ''}`}

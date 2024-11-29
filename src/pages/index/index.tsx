@@ -13,7 +13,7 @@ import PostList from './PostList/PostList';
 
 const Index = () => {
   const { loading, sysTemConfig } = useSystemConfig();
-  const { statusBarHeight, screenHeight } = useAppConfig();
+  const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
   const [welcomeStyle, setWelcomeStyle] = useState({});
   const [navStyle, setNavStyle] = useState({});
   const [activeCategory, setActiveCategory] = useState('all');
@@ -36,8 +36,8 @@ const Index = () => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const changeCategory = (id: string) => {
-    setActiveCategory(id)
-  }
+    setActiveCategory(id);
+  };
 
   // 监听页面滚动
   usePageScroll((res) => {
@@ -48,10 +48,10 @@ const Index = () => {
   const nextPage = () => {
     // 跳转到下一页
     pageScrollTo({
-      scrollTop: screenHeight,
-      duration: 300, // 动画时长
+      scrollTop: screenHeight - statusBarHeight - navBarHeight,
+      duration: 300 // 动画时长
     });
-  }
+  };
 
   return (
     <ConfigProvider>
