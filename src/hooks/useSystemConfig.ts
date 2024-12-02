@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getConfigByName } from '../api/config';
 import { safeParse } from '../utils/tools';
+import { useUserStore } from '../stores';
 
 interface ConfigData {
   activeTheme: string;
@@ -14,8 +15,10 @@ interface FetchConfigResult {
 }
 
 const useFetchConfig = (): FetchConfigResult => {
-  const [sysTemConfig, setSysTemConfig] = useState<ConfigData | null>(null);
+  const [sysTemConfig] = useState<ConfigData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+
+  const { setUserinfo } = useUserStore();
 
   useEffect(() => {
     let tempConfig: any = {}
@@ -30,7 +33,7 @@ const useFetchConfig = (): FetchConfigResult => {
           tempConfig.themeTop = safeParse(themeRes?.data?.top)
         }
         console.log('systemInfo:', tempConfig)
-        setSysTemConfig(tempConfig)
+        setUserinfo(tempConfig)
       } catch (e) {
       } finally {
         setLoading(false)

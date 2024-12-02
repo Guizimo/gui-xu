@@ -61,9 +61,8 @@ const PostList = (props: PostListProps) => {
     }
   }, [activeCategory]);
 
-
   if (loading) {
-    return <GlobalLoading visible={loading} message="加速扒拉中..." />
+    return <GlobalLoading visible={loading} />
   }
 
   return (

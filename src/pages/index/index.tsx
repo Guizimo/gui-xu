@@ -10,9 +10,11 @@ import { usePageScroll, pageScrollTo } from '@tarojs/taro';
 import TypingEffect from '../../components/TypingEffect/TypingEffect';
 import CategoryList from './CategoryList/CategoryList';
 import PostList from './PostList/PostList';
+import { useUserStore } from '../../stores';
 
 const Index = () => {
-  const { loading, sysTemConfig } = useSystemConfig();
+  const { loading } = useSystemConfig();
+  const { userinfo } = useUserStore();
   const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
   const [welcomeStyle, setWelcomeStyle] = useState({});
   const [navStyle, setNavStyle] = useState({});
@@ -20,12 +22,12 @@ const Index = () => {
 
   useEffect(() => {
     // 设置欢迎页背景图
-    if (sysTemConfig?.themeTop?.above?.phone_index_img) {
+    if (userinfo?.themeTop?.above?.phone_index_img) {
       setWelcomeStyle({
-        background: `url(${sysTemConfig?.themeTop?.above?.phone_index_img}) no-repeat center / cover`
+        background: `url(${userinfo?.themeTop?.above?.phone_index_img}) no-repeat center / cover`
       });
     }
-  }, [sysTemConfig]);
+  }, [userinfo]);
 
   useEffect(() => {
     if (statusBarHeight) {
@@ -57,14 +59,14 @@ const Index = () => {
     <ConfigProvider>
       <View className="index-page">
         <View className={`index-page-nav ${isScrolled ? 'isScroll' : ''}`} style={navStyle}>
-          <View className="index-page-nav-title">{sysTemConfig?.basic?.title}</View>
+          <View className="index-page-nav-title">{userinfo?.basic?.title}</View>
         </View>
         <View className="index-page-welcome" style={welcomeStyle}>
           <View className="index-page-welcome-head" />
           <View className="index-page-welcome-box">
-            <View className="index-page-welcome-box-title">{sysTemConfig?.basic?.title}</View>
+            <View className="index-page-welcome-box-title">{userinfo?.basic?.title}</View>
             <View className="index-page-welcome-box-desc">
-              <TypingEffect text={sysTemConfig?.themeTop?.above?.typed[0]?.text} speed={150} />
+              <TypingEffect text={userinfo?.themeTop?.above?.typed[0]?.text} speed={150} />
             </View>
           </View>
           <View className="index-page-welcome-footer">
@@ -77,7 +79,7 @@ const Index = () => {
           <CategoryList activeCategory={activeCategory} onChange={changeCategory} />
           <PostList activeCategory={activeCategory} gotoDetail={() => {}} />
         </View>
-        <GlobalLoading visible={loading} isInit />
+        <GlobalLoading visible={loading} isInit message="疯狂扒拉数据中..." />
       </View>
     </ConfigProvider>
   );

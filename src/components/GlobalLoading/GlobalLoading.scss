@@ -4,9 +4,30 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #f7f9fe;
+  background-color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10000;
+
+  .global-loading-box {
+    position: relative;
+
+    .global-loading-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      z-index: 100;
+    }
+    .global-loading-bar {
+      position: absolute;
+      bottom: 4px;
+      right: 0;
+      width: 20px;
+      height: 20px;
+      border: 10px solid #fff;
+      border-radius: 50%;
+      background-color: #6bdf8f;
+    }
+  }
 }

@@ -1,6 +1,7 @@
 import { Image, View } from '@tarojs/components';
 import { Animate, Loading } from '@nutui/nutui-react-taro';
 import './GlobalLoading.scss';
+import { useUserStore } from '../../stores';
 
 interface Props {
   visible: boolean;
@@ -9,17 +10,25 @@ interface Props {
 }
 
 const GlobalLoading = (props: Props) => {
-  const { visible, message, isInit } = props;
+  const { visible, message, isInit = false } = props;
+  const { userinfo } = useUserStore();
 
   if (!visible) return null;
 
   return (
     <View className="global-loading-container">
-      {isInit ? <Loading direction="vertical">{message || '加载中'}</Loading> : <View>
-        <Animate type="float" loop>
-          {/*<Image src={} />*/}
-        </Animate>
-      </View>}
+      {isInit ? (
+        <Loading direction="vertical">{message || '加载中'}</Loading>
+      ) : (
+        <View>
+          <Animate type="breath" loop>
+            <View className="global-loading-box">
+              <Image src={userinfo?.basic?.logo} className="global-loading-image" />
+              <View className="global-loading-bar" />
+            </View>
+          </Animate>
+        </View>
+      )}
     </View>
   );
 };
