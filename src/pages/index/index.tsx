@@ -11,11 +11,12 @@ import TypingEffect from '../../components/TypingEffect/TypingEffect';
 import CategoryList from './CategoryList/CategoryList';
 import PostList from './PostList/PostList';
 import { useUserStore } from '../../stores';
+import BackTop from '../../components/BackTop/BackTop';
 
 const Index = () => {
   const { loading } = useSystemConfig();
   const { userinfo } = useUserStore();
-  const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
+  const { statusBarHeight, screenHeight, navBarHeight, menuBarWidth } = useAppConfig();
   const [welcomeStyle, setWelcomeStyle] = useState({});
   const [navStyle, setNavStyle] = useState({});
   const [activeCategory, setActiveCategory] = useState('all');
@@ -60,6 +61,9 @@ const Index = () => {
       <View className="index-page">
         <View className={`index-page-nav ${isScrolled ? 'isScroll' : ''}`} style={navStyle}>
           <View className="index-page-nav-title">{userinfo?.basic?.title}</View>
+          <View className="index-page-nav-tools" style={{marginRight: `${menuBarWidth}px`}}>
+            <BackTop />
+          </View>
         </View>
         <View className="index-page-welcome" style={welcomeStyle}>
           <View className="index-page-welcome-head" />

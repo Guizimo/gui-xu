@@ -62,6 +62,7 @@
     z-index: 1000;
     transition: background-color 0.2s ease-in-out; // 背景色动画
     align-items: center;
+    justify-content: space-between;
 
     &.isScroll {
       background: #ffffff;
@@ -77,6 +78,10 @@
       font-size: 1.3em;
       color: rgba(255, 255, 255, 0.7);
       font-weight: 700;
+    }
+
+    .index-page-nav-tools {
+      padding: 0 20px;
     }
 
   }

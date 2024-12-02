@@ -51,6 +51,7 @@ const PostList = (props: PostListProps) => {
       setPostList(tempPostList);
     } catch (e) {
       console.log(e);
+      setPostList([]);
     } finally {
       setLoading(false);
     }
