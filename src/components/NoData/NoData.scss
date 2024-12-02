@@ -1,0 +1,20 @@
+.no-data-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  .no-data__image {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    border-radius: 50%;
+  }
+
+  .no-data__text {
+    font-size: 14px;
+    color: #999;
+  }
+}

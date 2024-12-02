@@ -4,6 +4,7 @@ import { getPosts } from '../../../api/post';
 import { useEffect, useState } from 'react';
 import { generateRandomImgSrc, getDataInfo } from '../../../utils/tools';
 import GlobalLoading from '../../../components/GlobalLoading/GlobalLoading';
+import useAppConfig from '../../../hooks/useAppConfig';
 
 interface PostListProps {
   activeCategory: string;
@@ -25,7 +26,7 @@ interface PostItem {
 
 const PostList = (props: PostListProps) => {
   const { activeCategory, gotoDetail } = props;
-
+  const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
   const [postList, setPostList] = useState<PostItem[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -66,7 +67,7 @@ const PostList = (props: PostListProps) => {
   }
 
   return (
-    <View className="post-list-container">
+    <View className="post-list-container" style={{minHeight: `${screenHeight - statusBarHeight - navBarHeight - 50}px`}}>
       {postList.map((item) => (
         <View className="post-list-container-item" key={item.id} onClick={() => gotoDetail(item.id)}>
           <Image className="post-list-container-item-cover" lazyLoad src={item.cover}></Image>
