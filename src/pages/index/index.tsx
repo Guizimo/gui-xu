@@ -13,6 +13,7 @@ import PostList from './PostList/PostList';
 import { useUserStore } from '../../stores';
 import BackTop from '../../components/BackTop/BackTop';
 import Layout from './Layout/Layout';
+import useVibrationConfig from '../../hooks/useVibrationConfig';
 
 const Index = () => {
   const { loading } = useSystemConfig();
@@ -22,6 +23,7 @@ const Index = () => {
   const [navStyle, setNavStyle] = useState({});
   const [showLayout, setShowLayout] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState('all');
+  const {runVibrateShort} = useVibrationConfig()
 
   useEffect(() => {
     // 设置欢迎页背景图
@@ -51,6 +53,7 @@ const Index = () => {
   });
 
   const nextPage = () => {
+    runVibrateShort()
     // 跳转到下一页
     pageScrollTo({
       scrollTop: screenHeight - statusBarHeight - navBarHeight,
@@ -59,6 +62,7 @@ const Index = () => {
   };
 
   const openLayout = () => {
+    runVibrateShort()
     setShowLayout(true);
   };
 

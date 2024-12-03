@@ -3,6 +3,7 @@ import './CategoryList.scss';
 import { useEffect, useState } from 'react';
 import { getCategoryList } from '../../../api/post';
 import useAppConfig from '../../../hooks/useAppConfig';
+import useVibrationConfig from '../../../hooks/useVibrationConfig';
 
 interface CategoryListProps {
   activeCategory: string;
@@ -19,7 +20,7 @@ const CategoryList = (props: CategoryListProps) => {
   const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
   const { statusBarHeight, navBarHeight } = useAppConfig();
   const [navStyle, setNavStyle] = useState({});
-
+  const { runVibrateShort } = useVibrationConfig();
 
   useEffect(() => {
     if (statusBarHeight) {
@@ -51,7 +52,10 @@ const CategoryList = (props: CategoryListProps) => {
         <View
           className={`category-list-container-item ${activeCategory === item.id ? 'selected' : ''}`}
           key={item.id}
-          onClick={() => onChange(item.id)}
+          onClick={() => {
+            runVibrateShort();
+            onChange(item.id)
+          }}
         >
           {item.name}
         </View>

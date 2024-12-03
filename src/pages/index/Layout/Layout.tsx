@@ -4,6 +4,7 @@ import { Image, View } from '@tarojs/components';
 import useAppConfig from '../../../hooks/useAppConfig';
 import { useSettingStore, useUserStore } from '../../../stores';
 import { useEffect, useState } from 'react';
+import useVibrationConfig from '../../../hooks/useVibrationConfig';
 
 interface Props {
   show: boolean;
@@ -14,20 +15,22 @@ const Layout = (props: Props) => {
   const { show, onClose } = props;
   const { statusBarHeight } = useAppConfig();
   const { userinfo } = useUserStore();
-  const { setVibrationFeedback } = useSettingStore();
+  const { setVibrationFeedback, isVibrationFeedback } = useSettingStore();
   const [visibleLayout, setVisibleLayout] = useState(false);
+  const { runVibrateShort } = useVibrationConfig();
 
   const changeVibration = (value: boolean) => {
     setVibrationFeedback(value);
   };
 
   const closeHandle = () => {
+    runVibrateShort();
     onClose && onClose();
   };
 
   useEffect(() => {
-    setVisibleLayout(show)
-  }, [show])
+    setVisibleLayout(show);
+  }, [show]);
 
   return (
     <Popup
@@ -47,7 +50,7 @@ const Layout = (props: Props) => {
           <View className="layout-setting-content">
             <View className="layout-setting-title">震动反馈</View>
             <Switch
-              defaultChecked
+              defaultChecked={isVibrationFeedback}
               style={{
                 // @ts-ignore
                 '--nutui-switch-open-background-color': '#425AEF'
