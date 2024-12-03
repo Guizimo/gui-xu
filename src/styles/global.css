@@ -1,0 +1,4 @@
+.nut-overlay {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: saturate(180%) blur(20px);
+}

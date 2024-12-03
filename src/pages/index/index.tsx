@@ -12,6 +12,7 @@ import CategoryList from './CategoryList/CategoryList';
 import PostList from './PostList/PostList';
 import { useUserStore } from '../../stores';
 import BackTop from '../../components/BackTop/BackTop';
+import Layout from './Layout/Layout';
 
 const Index = () => {
   const { loading } = useSystemConfig();
@@ -19,6 +20,7 @@ const Index = () => {
   const { statusBarHeight, screenHeight, navBarHeight, menuBarWidth } = useAppConfig();
   const [welcomeStyle, setWelcomeStyle] = useState({});
   const [navStyle, setNavStyle] = useState({});
+  const [showLayout, setShowLayout] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState('all');
 
   useEffect(() => {
@@ -56,12 +58,22 @@ const Index = () => {
     });
   };
 
+  const openLayout = () => {
+    setShowLayout(true);
+  };
+
+  const closeLayout = () => {
+    setShowLayout(false);
+  };
+
   return (
     <ConfigProvider>
       <View className="index-page">
         <View className={`index-page-nav ${isScrolled ? 'isScroll' : ''}`} style={navStyle}>
-          <View className="index-page-nav-title">{userinfo?.basic?.title}</View>
-          <View className="index-page-nav-tools" style={{marginRight: `${menuBarWidth}px`}}>
+          <View className="index-page-nav-title" onClick={openLayout}>
+            {userinfo?.basic?.title}
+          </View>
+          <View className="index-page-nav-tools" style={{ marginRight: `${menuBarWidth}px` }}>
             <BackTop />
           </View>
         </View>
@@ -84,6 +96,10 @@ const Index = () => {
           <PostList activeCategory={activeCategory} gotoDetail={() => {}} />
         </View>
         <GlobalLoading visible={loading} isInit message="疯狂扒拉数据中..." />
+        <Layout
+          show={showLayout}
+          onClose={closeLayout}
+        />
       </View>
     </ConfigProvider>
   );
