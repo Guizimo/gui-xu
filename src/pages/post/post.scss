@@ -1,0 +1,112 @@
+.post-page {
+  // 隐藏滚动条
+  &::-webkit-scrollbar {
+    display: none; // 隐藏滚动条（H5 和部分环境支持）
+  }
+
+  // 小程序隐藏滚动条（横向滚动本身不显示）
+  scrollbar-width: none; // Firefox 支持
+
+  .post-head {
+    width: 100%;
+    height: 30rem;
+    background-color: #425AEF;
+
+    .post-img {
+      width: 100%;
+      height: 240px;
+      position: relative;
+
+      &:after {
+        box-shadow: inset 0px 2px 50px 70px #425AEF;
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 240px;
+        top: 0;
+        left: 0;
+      }
+    }
+
+    .post-info {
+      padding: 0 6%;
+
+      .post-info-category {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        .post-info-category-item {
+          background-color: rgba(255, 255, 255, 0.2);
+          padding: 0 10px;
+          border-radius: 12px;
+          line-height: 28px;
+          height: 28px;
+          color: #ffffff;
+          font-size: 0.8rem;
+          font-weight: 800;
+        }
+
+      }
+
+      .post-info-title {
+        font-size: 1.4rem;
+        text-align: center;
+        color: #ffffff;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 1rem;
+      }
+
+      .post-info-meta {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        .post-info-meta-item {
+          display: flex;
+          align-items: center;
+          color: #ffffff;
+          font-size: 0.9rem;
+          opacity: 0.6;
+          margin-right: 0.8rem;
+
+          .post-info-meta-item-text {
+            margin-left: 4px;
+          }
+        }
+      }
+    }
+  }
+
+  .post-content {
+    border-radius: 12px 12px 0 0;
+    background-color: #ffffff;
+    padding: 1rem;
+    margin-top: -1rem;
+
+    .post-content-excerpt {
+      background: #f7f7f9;
+      border-radius: 12px;
+      padding: 12px;
+      line-height: 1.3;
+      border: 1px solid #e3e8f7;
+      font-size: 16px;
+      color: #363636;
+
+      .post-content-excerpt-content {
+        margin-top: 12px;
+        padding: 8px 12px;
+        background: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #e3e8f7;
+        font-size: 15.8px;
+        line-height: 1.4;
+      }
+
+    }
+  }
+}

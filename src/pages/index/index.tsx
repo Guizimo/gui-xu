@@ -6,24 +6,21 @@ import GlobalLoading from '../../components/GlobalLoading/GlobalLoading';
 import { useEffect, useState } from 'react';
 import useAppConfig from '../../hooks/useAppConfig';
 import { ArrowDown } from '@nutui/icons-react-taro';
-import { usePageScroll, pageScrollTo } from '@tarojs/taro';
+import { pageScrollTo } from '@tarojs/taro';
 import TypingEffect from '../../components/TypingEffect/TypingEffect';
 import CategoryList from './CategoryList/CategoryList';
 import PostList from './PostList/PostList';
 import { useUserStore } from '../../stores';
-import BackTop from '../../components/BackTop/BackTop';
-import Layout from './Layout/Layout';
 import useVibrationConfig from '../../hooks/useVibrationConfig';
+import NavBar from '../../components/NavBar/NavBar';
 
 const Index = () => {
   const { loading } = useSystemConfig();
   const { userinfo } = useUserStore();
-  const { statusBarHeight, screenHeight, navBarHeight, menuBarWidth } = useAppConfig();
+  const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
   const [welcomeStyle, setWelcomeStyle] = useState({});
-  const [navStyle, setNavStyle] = useState({});
-  const [showLayout, setShowLayout] = useState<boolean>(false);
   const [activeCategory, setActiveCategory] = useState('all');
-  const {runVibrateShort} = useVibrationConfig()
+  const { runVibrateShort } = useVibrationConfig();
 
   useEffect(() => {
     // 设置欢迎页背景图
@@ -34,26 +31,12 @@ const Index = () => {
     }
   }, [userinfo]);
 
-  useEffect(() => {
-    if (statusBarHeight) {
-      setNavStyle({ paddingTop: `${statusBarHeight}px` });
-    }
-  }, [statusBarHeight]);
-
-  const [isScrolled, setIsScrolled] = useState(false);
-
   const changeCategory = (id: string) => {
     setActiveCategory(id);
   };
 
-  // 监听页面滚动
-  usePageScroll((res) => {
-    // 根据滚动位置调整背景色
-    setIsScrolled(res.scrollTop > 20);
-  });
-
   const nextPage = () => {
-    runVibrateShort()
+    runVibrateShort();
     // 跳转到下一页
     pageScrollTo({
       scrollTop: screenHeight - statusBarHeight - navBarHeight,
@@ -61,26 +44,10 @@ const Index = () => {
     });
   };
 
-  const openLayout = () => {
-    runVibrateShort()
-    setShowLayout(true);
-  };
-
-  const closeLayout = () => {
-    setShowLayout(false);
-  };
-
   return (
     <ConfigProvider>
       <View className="index-page">
-        <View className={`index-page-nav ${isScrolled ? 'isScroll' : ''}`} style={navStyle}>
-          <View className="index-page-nav-title" onClick={openLayout}>
-            {userinfo?.basic?.title}
-          </View>
-          <View className="index-page-nav-tools" style={{ marginRight: `${menuBarWidth}px` }}>
-            <BackTop />
-          </View>
-        </View>
+        <NavBar />
         <View className="index-page-welcome" style={welcomeStyle}>
           <View className="index-page-welcome-head" />
           <View className="index-page-welcome-box">
@@ -97,13 +64,9 @@ const Index = () => {
         </View>
         <View className="index-page-content">
           <CategoryList activeCategory={activeCategory} onChange={changeCategory} />
-          <PostList activeCategory={activeCategory} gotoDetail={() => {}} />
+          <PostList activeCategory={activeCategory} />
         </View>
         <GlobalLoading visible={loading} isInit message="疯狂扒拉数据中..." />
-        <Layout
-          show={showLayout}
-          onClose={closeLayout}
-        />
       </View>
     </ConfigProvider>
   );

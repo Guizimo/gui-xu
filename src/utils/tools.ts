@@ -28,5 +28,6 @@ export const generateRandomImgSrc = (name: string) => {
  * @param dataString
  */
 export const getDataInfo = (dataString: string) => {
+  if (!dataString) return '--'
   return dataString.split('T')[0]
 }

@@ -23,7 +23,9 @@ export const getPosts = (categoryId: string) => {
 
 /**
  * 获取文章详情
- * @param url
- * @param params
+ * @param postId
  */
-export const getPostDetail = (url: string, params: {}) => taroRequest({ url, method: 'GET', params });
+export const getPostDetail = (postId: any) => {
+  let url = `/apis/api.content.halo.run/v1alpha1/posts/${postId}`;
+  return taroRequest({ url, method: 'GET' });
+};

@@ -1,4 +1,5 @@
 import { Image, View } from '@tarojs/components';
+import { navigateTo } from '@tarojs/taro';
 import './PostList.scss';
 import { getPosts } from '../../../api/post';
 import { useEffect, useState } from 'react';
@@ -8,7 +9,6 @@ import useAppConfig from '../../../hooks/useAppConfig';
 
 interface PostListProps {
   activeCategory: string;
-  gotoDetail: (id: string) => void;
 }
 
 interface CategoryItem {
@@ -25,18 +25,21 @@ interface PostItem {
 }
 
 const PostList = (props: PostListProps) => {
-  const { activeCategory, gotoDetail } = props;
+  const { activeCategory } = props;
   const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
+  // 文章列表
   const [postList, setPostList] = useState<PostItem[]>([]);
+  // loading
   const [loading, setLoading] = useState<boolean>(true);
 
+  // 获取文章列表
   const fetchData = async () => {
     setLoading(true);
     try {
       const { items } = await getPosts(activeCategory);
       const tempPostList: PostItem[] = items.map((item: any) => {
         return {
-          id: item?.post?.spec?.headSnapshot,
+          id: item?.post?.metadata?.name,
           name: item?.post?.spec?.title,
           cover: item?.post?.spec?.cover || generateRandomImgSrc(item?.post?.spec?.title),
           publishTime: getDataInfo(item?.post?.spec?.publishTime),
@@ -63,12 +66,24 @@ const PostList = (props: PostListProps) => {
     }
   }, [activeCategory]);
 
+  // 跳转到详情页
+  const gotoDetail = (id: string) => {
+    navigateTo({
+      url: `/pages/post/post?id=${id}`
+    });
+  };
+
+  // 渲染Loading
   if (loading) {
-    return <GlobalLoading visible={loading} />
+    return <GlobalLoading visible={loading} />;
   }
 
+  // 渲染列表
   return (
-    <View className="post-list-container" style={{minHeight: `${screenHeight - statusBarHeight - navBarHeight - 50}px`}}>
+    <View
+      className="post-list-container"
+      style={{ minHeight: `${screenHeight - statusBarHeight - navBarHeight - 50}px` }}
+    >
       {postList.map((item) => (
         <View className="post-list-container-item" key={item.id} onClick={() => gotoDetail(item.id)}>
           <Image className="post-list-container-item-cover" lazyLoad src={item.cover}></Image>
