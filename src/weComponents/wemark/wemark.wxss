@@ -1,0 +1,160 @@
+@import "prism.wxss";
+
+.wemark_wrapper{
+	margin:10px 0;
+	font-size:32rpx;
+	line-height: 1.8em;
+}
+.wemark_block_h1{
+	font-size: 1.5rem;
+	text-align: left;
+	line-height: 1.3;
+	margin-bottom: 1rem;
+	color: #363636;
+	font-weight: 700;
+}
+.wemark_block_h2{
+	font-size: 1.3rem;
+	padding-bottom:.5em;
+	margin-top:1em;
+	margin-bottom:1em;
+	border-bottom:1px solid #f0f0f0;
+	font-weight: 700;
+}
+.wemark_block_h3{
+	font-size: 1.1rem;
+	margin-top: 1em;
+	margin-bottom: 1em;
+	font-weight: 700;
+}
+.wemark_block_h4,
+.wemark_block_h5,
+.wemark_block_h6{
+	font-weight: bold;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+.wemark_block_p{
+	margin-top:1em;
+	margin-bottom:1em;
+}
+.wemark_block_video{
+	margin-top:1em;
+	margin-bottom:1em;
+	width:100%;
+}
+.wemark_block_blockquote_p{
+	border: 1px solid #e3e8f7;
+  background-color: #f7f7f9;
+  color: rgba(60, 60, 67, 0.8);
+  border-radius: 8px;
+  margin: 1rem 0;
+  padding: 0.5rem 0.8rem;
+}
+.wemark_block_ul_li_p::before{
+	content:'• ';
+}
+.wemark_block_ul_li_ul_li_p::before,
+.wemark_block_ol_li_ul_li_p::before{
+	content:'◦ ';
+}
+.wemark_block_ul_li_ul_li_p,
+.wemark_block_ul_li_ol_li_p,
+.wemark_block_ol_li_ul_li_p,
+.wemark_block_ol_li_ol_li_p{
+	padding-left: 1em;
+}
+.wemark_block_ul_li_p:last{
+	margin-bottom:1em;
+}
+.wemark_block_code{
+	display: block;
+	padding:10px;
+	font-size:28rpx;
+	line-height: 1.5em;
+	border:1px solid #f0f0f0;
+	background:#f8f8f8;
+	border-radius: 2px;
+	white-space: pre;
+	overflow: auto;
+}
+.wemark_block_table{
+	width: 100%;
+	border-spacing: 0;
+	border-collapse: collapse;
+	/* border-left: 1px solid #e0e0e0; */
+	/* border-top: 1px solid #e0e0e0; */
+}
+.wemark_block_table_tr{
+	display: flex;
+}
+.wemark_wrapper_richtext .wemark_block_table_tr{
+	display: table-row;
+}
+.wemark_inline_table_th,
+.wemark_inline_table_td{
+	flex:1;
+	padding:5px;
+	font-size:28rpx;
+	word-break: break-all;
+	border: 1px solid #e0e0e0;
+}
+.wemark_wrapper_richtext .wemark_inline_table_th,
+.wemark_wrapper_richtext .wemark_inline_table_td{
+	display: table-cell;
+	/* background:red;
+	border-right:1px solid #e0e0e0;
+	border-bottom:1px solid #e0e0e0; */
+}
+.wemark_inline_table_td:last{
+	/* border-top:1px solid #e0e0e0; */
+}
+.wemark_inline_table_th{
+	background:#f0f0f0;
+	/* border-top:1px solid #e0e0e0; */
+}
+.wemark_inline_strong{
+	font-weight: bold;
+	word-wrap: break-word;
+	color: #425AEF;
+}
+.wemark_inline_em{
+	font-style: italic;
+	padding:0 5px;
+	word-wrap:break-word;
+}
+.wemark_inline_strong_em{
+	font-style: italic;
+	font-weight: bold;
+	word-wrap:break-word;
+	color: #425AEF;
+}
+.wemark_inline_deleted{
+	text-decoration: line-through;
+	padding:0 5px;
+	word-wrap:break-word;
+}
+.wemark_inline_image{
+	width:100%;
+	height:auto;
+}
+.wemark_inline_code{
+  padding: 0 0.4rem;
+  border-radius: 2px;
+  margin: 0px 2px;
+  background-color: #fff5f5;
+  color: #ff502c;
+	font-size: 0.9rem;
+	word-wrap: break-word;
+}
+.wemark_inline_text{
+	word-wrap:break-word;
+}
+.wemark_inline_link{
+	display: inline;
+	color: #363636;
+	border-bottom: 2px dotted #425AEF;
+  font-weight: 700;
+  padding: 0 4px;
+	word-wrap:break-word;
+}

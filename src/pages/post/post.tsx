@@ -15,15 +15,16 @@ interface Category {
 }
 
 interface PostInfo {
-  img: string;
-  title: string;
-  author: string;
-  visit: number;
-  comment: number;
-  publishDate: string;
-  excerpt: string;
-  lastModifyDate: string;
-  categories: Category[]
+  img: string; // 封面图
+  title: string; // 标题
+  author: string; // 作者
+  visit: number; // 浏览量
+  comment: number; // 评论数
+  content: string; // 内容
+  publishDate: string; // 发布日期
+  excerpt: string; // 摘要
+  lastModifyDate: string; // 最后修改日期
+  categories: Category[] // 分类
 }
 
 const Post = () => {
@@ -39,13 +40,14 @@ const Post = () => {
       const router = getCurrentInstance().router;
       // 从 router 中解析参数
       const { id } = router?.params || {};
-      const { spec, owner, categories, stats, status } = await getPostDetail(id);
+      const { spec, owner, categories, stats, status, content } = await getPostDetail(id);
       const temp: any = {}
       temp.title = spec?.title
       temp.img = spec?.cover || generateRandomImgSrc(spec?.title)
       temp.author = owner?.displayName
       temp.visit = stats?.visit
       temp.comment = stats?.comment
+      temp.content = content?.raw
       temp.excerpt = spec?.excerpt?.raw
       temp.lastModifyDate = getDataInfo(status?.lastModifyTime)
       temp.publishDate = getDataInfo(status?.conditions?.find((item: any) => item.type === 'PUBLISHED')?.lastTransitionTime)
@@ -115,9 +117,13 @@ const Post = () => {
         </View>
         <View className="post-content">
           <View className="post-content-excerpt">
+            <View className="post-content-excerpt-title">AI摘要</View>
             <View className="post-content-excerpt-content">
-              {postInfo.excerpt}
+              {postInfo.excerpt || 'AI偷懒了，没有摘要'}
             </View>
+          </View>
+          <View className="post-content-raw">
+            <wemark md={postInfo.content} link highlight type='wemark' />
           </View>
         </View>
       </View>

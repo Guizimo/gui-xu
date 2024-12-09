@@ -21,6 +21,10 @@ export default defineConfig<'webpack5'>(async (merge, {}) => {
     },
     copy: {
       patterns: [
+        {
+          from: 'src/weComponents/wemark',
+          to: 'dist/wemark',
+        },
       ],
       options: {
       }

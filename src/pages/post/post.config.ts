@@ -1,3 +1,6 @@
 export default definePageConfig({
-  navigationStyle: 'custom'
+  navigationStyle: 'custom',
+  usingComponents: {
+    wemark: '../../wemark/wemark'
+  }
 })

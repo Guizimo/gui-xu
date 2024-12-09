@@ -25,3 +25,9 @@ declare namespace NodeJS {
     TARO_APP_ID: string
   }
 }
+
+declare namespace JSX {
+  interface IntrinsicElements {
+    wemark: any
+  }
+}
