@@ -7,7 +7,8 @@ import GlobalLoading from '../../components/GlobalLoading/GlobalLoading';
 import { ConfigProvider } from '@nutui/nutui-react-taro';
 import NavBar from '../../components/NavBar/NavBar';
 import { generateRandomImgSrc, getDataInfo } from '../../utils/tools';
-import { Comment, Date, Edit, Eye, People } from '@nutui/icons-react-taro';
+import { Comment, Date, Edit, Eye, Github, Link, People } from '@nutui/icons-react-taro';
+import { useUserStore } from '../../stores';
 
 interface Category {
   name: string,
@@ -32,6 +33,7 @@ const Post = () => {
   const [postInfo, setPostInfo] = useState<PostInfo | null>(null);
   // loading
   const [loading, setLoading] = useState<boolean>(true);
+  const { userinfo } = useUserStore();
 
   const fetchData = async () => {
     setLoading(true);
@@ -124,6 +126,19 @@ const Post = () => {
           </View>
           <View className="post-content-raw">
             <wemark md={postInfo.content} link highlight type='wemark' />
+          </View>
+          <View className="post-content-author">
+            <Image className="post-content-author-img" src={userinfo?.basic?.logo} />
+            <View className="post-content-author-name">{userinfo?.basic?.title}</View>
+            <View className="post-content-author-desc">{userinfo?.themeTop?.above?.typed[0]?.text}</View>
+            <View className="post-content-author-btn">
+              <View className="post-content-author-btn-item">
+                <Github />
+              </View>
+              <View className="post-content-author-btn-item">
+                <Link />
+              </View>
+            </View>
           </View>
         </View>
       </View>

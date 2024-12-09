@@ -5,6 +5,7 @@ import useAppConfig from '../../../hooks/useAppConfig';
 import { useSettingStore, useUserStore } from '../../../stores';
 import { useEffect, useState } from 'react';
 import useVibrationConfig from '../../../hooks/useVibrationConfig';
+import { Github, Link } from '@nutui/icons-react-taro';
 
 interface Props {
   show: boolean;
@@ -35,7 +36,7 @@ const Layout = (props: Props) => {
   return (
     <Popup
       visible={visibleLayout}
-      style={{ width: '60%', height: '100%', background: '#f6f8fa' }}
+      style={{ width: '70%', height: '100%', background: '#f6f8fa' }}
       position="left"
       onClose={closeHandle}
     >
@@ -44,6 +45,14 @@ const Layout = (props: Props) => {
           <Image className="layout-header-img" src={userinfo?.basic?.logo} />
           <View className="layout-header-name">{userinfo?.basic?.title}</View>
           <View className="layout-header-text">{userinfo?.themeTop?.above?.typed[0]?.text}</View>
+          <View className="layout-header-btn">
+            <View className="layout-header-btn-item">
+              <Github />
+            </View>
+            <View className="layout-header-btn-item">
+              <Link />
+            </View>
+          </View>
         </View>
         <View className="layout-setting">
           <View className="layout-setting-name">设置</View>
