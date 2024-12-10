@@ -3,7 +3,6 @@ import './CategoryList.scss';
 import { useEffect, useState } from 'react';
 import { getCategoryList } from '../../../api/post';
 import useAppConfig from '../../../hooks/useAppConfig';
-import useVibrationConfig from '../../../hooks/useVibrationConfig';
 
 interface CategoryListProps {
   activeCategory: string; // 当前选中的分类
@@ -20,12 +19,10 @@ const CategoryList = (props: CategoryListProps) => {
   const [categoryList, setCategoryList] = useState<CategoryItem[]>([]);
   const { statusBarHeight, navBarHeight } = useAppConfig();
   const [navStyle, setNavStyle] = useState({});
-  const { runVibrateShort } = useVibrationConfig();
 
   // 设置导航栏样式
   useEffect(() => {
     if (statusBarHeight) {
-      console.log(statusBarHeight, navBarHeight, '899998888')
       setNavStyle({ top: `${statusBarHeight + navBarHeight}px` });
     }
   }, [statusBarHeight]);
@@ -56,7 +53,6 @@ const CategoryList = (props: CategoryListProps) => {
           className={`category-list-container-item ${activeCategory === item.id ? 'selected' : ''}`}
           key={item.id}
           onClick={() => {
-            runVibrateShort();
             onChange(item.id);
           }}
         >

@@ -19,7 +19,6 @@ const useAppConfig = () => {
 
   useEffect(() => {
     const windowInfo: any = getWindowInfo(); // 获取系统信息
-    console.log(windowInfo, '88888')
     setStatusBarHeight(windowInfo?.statusBarHeight); // 设置状态栏高度
     setScreenHeight(windowInfo?.screenHeight); // 设置状态栏高度
     setScreenWidth(windowInfo?.screenWidth); // 设置状态栏宽度

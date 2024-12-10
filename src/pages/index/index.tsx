@@ -17,7 +17,7 @@ import NavBar from '../../components/NavBar/NavBar';
 const Index = () => {
   const { loading } = useSystemConfig();
   const { userinfo } = useUserStore();
-  const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
+  const { statusBarHeight, navBarHeight } = useAppConfig();
   const [welcomeStyle, setWelcomeStyle] = useState({});
   const [activeCategory, setActiveCategory] = useState('all');
   const { runVibrateShort } = useVibrationConfig();
@@ -42,7 +42,8 @@ const Index = () => {
     runVibrateShort();
     // 跳转到下一页
     pageScrollTo({
-      scrollTop: screenHeight - statusBarHeight - navBarHeight,
+      selector: '.index-page-content',
+      offsetTop: -(statusBarHeight + navBarHeight),
       duration: 300 // 动画时长
     });
   };

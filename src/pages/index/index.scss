@@ -55,6 +55,7 @@
   .index-page-content {
     padding: 0 20px 60px 20px;
     background-color: #f7f9fe;
+    min-height: calc(100vh - 60px);
   }
 
 }
