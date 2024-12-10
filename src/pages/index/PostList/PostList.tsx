@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { generateRandomImgSrc, getDataInfo } from '../../../utils/tools';
 import GlobalLoading from '../../../components/GlobalLoading/GlobalLoading';
 import useAppConfig from '../../../hooks/useAppConfig';
+import useVibrationConfig from '../../../hooks/useVibrationConfig';
 
 interface PostListProps {
   activeCategory: string;
@@ -27,6 +28,7 @@ interface PostItem {
 const PostList = (props: PostListProps) => {
   const { activeCategory } = props;
   const { statusBarHeight, screenHeight, navBarHeight } = useAppConfig();
+  const { runVibrateShort } = useVibrationConfig();
   // 文章列表
   const [postList, setPostList] = useState<PostItem[]>([]);
   // loading
@@ -68,6 +70,7 @@ const PostList = (props: PostListProps) => {
 
   // 跳转到详情页
   const gotoDetail = (id: string) => {
+    runVibrateShort()
     navigateTo({
       url: `/pages/post/post?id=${id}`
     });

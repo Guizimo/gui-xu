@@ -31,10 +31,13 @@ const Index = () => {
     }
   }, [userinfo]);
 
+  // 改变分类
   const changeCategory = (id: string) => {
     setActiveCategory(id);
+    nextPage();
   };
 
+  // 滚动到下一页
   const nextPage = () => {
     runVibrateShort();
     // 跳转到下一页

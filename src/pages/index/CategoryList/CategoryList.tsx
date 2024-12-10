@@ -6,13 +6,13 @@ import useAppConfig from '../../../hooks/useAppConfig';
 import useVibrationConfig from '../../../hooks/useVibrationConfig';
 
 interface CategoryListProps {
-  activeCategory: string;
-  onChange: (id: string) => void;
+  activeCategory: string; // 当前选中的分类
+  onChange: (id: string) => void; // 分类切换回调
 }
 
 interface CategoryItem {
-  id: string;
-  name: string;
+  id: string; // 分类id
+  name: string; // 分类名称
 }
 
 const CategoryList = (props: CategoryListProps) => {
@@ -22,12 +22,15 @@ const CategoryList = (props: CategoryListProps) => {
   const [navStyle, setNavStyle] = useState({});
   const { runVibrateShort } = useVibrationConfig();
 
+  // 设置导航栏样式
   useEffect(() => {
     if (statusBarHeight) {
+      console.log(statusBarHeight, navBarHeight, '899998888')
       setNavStyle({ top: `${statusBarHeight + navBarHeight}px` });
     }
   }, [statusBarHeight]);
 
+  // 获取分类列表
   const fetchData = async () => {
     try {
       const { items } = await getCategoryList();
@@ -54,7 +57,7 @@ const CategoryList = (props: CategoryListProps) => {
           key={item.id}
           onClick={() => {
             runVibrateShort();
-            onChange(item.id)
+            onChange(item.id);
           }}
         >
           {item.name}
