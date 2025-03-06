@@ -3,7 +3,7 @@ import { Image, View } from '@tarojs/components';
 import { useEffect, useState } from 'react';
 import { getPostDetail } from '../../api/post';
 import { getCurrentInstance } from '@tarojs/runtime';
-import { useShareAppMessage } from '@tarojs/taro';
+import { useShareAppMessage, downloadFile, getImageInfo, createOffscreenCanvas, canvasToTempFilePath } from '@tarojs/taro';
 import GlobalLoading from '../../components/GlobalLoading/GlobalLoading';
 import { ConfigProvider } from '@nutui/nutui-react-taro';
 import NavBar from '../../components/NavBar/NavBar';
@@ -40,13 +40,57 @@ const Post = () => {
   const router = getCurrentInstance().router;
   const postId = router?.params?.id;
 
+  // 处理分享图片
+  const getShareImage = async (imgUrl: string) => {
+    try {
+     // 下载图片到本地
+     const { tempFilePath } = await downloadFile({ url: imgUrl });
+     // 获取图片信息
+     const { width, height } = await getImageInfo({ src: tempFilePath });
+
+     console.log(width, height)
+     
+     // 创建画布处理图片
+     const canvas: any = await createOffscreenCanvas({ type: '2d', width: 600, height: 400 });
+     const ctx = canvas.getContext('2d');
+     
+     // 计算缩放和位置以确保图片居中
+     const scale = Math.max(600 / width, 400 / height);
+     const scaledWidth = width * scale;
+     const scaledHeight = height * scale;
+     const x = (600 - scaledWidth) / 2;
+     const y = (400 - scaledHeight) / 2;
+     
+     // 绘制图片
+     const image = canvas.createImage();
+     await new Promise((resolve) => {
+       image.onload = resolve;
+       image.src = tempFilePath;
+     });
+     ctx.drawImage(image, x, y, scaledWidth, scaledHeight);
+     
+     // 转换为临时文件
+     const { tempFilePath: shareImage } = await canvasToTempFilePath({
+       canvas,
+       width: 700,
+       height: 500,
+     });
+     
+     return shareImage;
+   } catch (error) {
+     console.error('处理分享图片失败:', error);
+     return imgUrl;
+   }
+  };
+
   // 添加分享功能
-  useShareAppMessage(() => {
+  useShareAppMessage(async () => {
+    const shareImage = await getShareImage(postInfo?.img || '');
     return {
       title: postInfo?.title || '精彩文章',
       path: `/pages/post/post?id=${postId}`,
       desc: postInfo?.excerpt,
-      imageUrl: postInfo?.img
+      imageUrl: shareImage
     };
   });
 
