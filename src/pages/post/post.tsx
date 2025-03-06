@@ -51,15 +51,15 @@ const Post = () => {
      console.log(width, height)
      
      // 创建画布处理图片
-     const canvas: any = await createOffscreenCanvas({ type: '2d', width: 600, height: 400 });
+     const canvas: any = await createOffscreenCanvas({ type: '2d', width: 700, height: 500 });
      const ctx = canvas.getContext('2d');
      
      // 计算缩放和位置以确保图片居中
-     const scale = Math.max(600 / width, 400 / height);
+     const scale = Math.max(700 / width, 500 / height);
      const scaledWidth = width * scale;
      const scaledHeight = height * scale;
-     const x = (600 - scaledWidth) / 2;
-     const y = (400 - scaledHeight) / 2;
+     const x = (700 - scaledWidth) / 2;
+     const y = (500 - scaledHeight) / 2;
      
      // 绘制图片
      const image = canvas.createImage();
