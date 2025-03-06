@@ -3,6 +3,7 @@ import { Image, View } from '@tarojs/components';
 import { useEffect, useState } from 'react';
 import { getPostDetail } from '../../api/post';
 import { getCurrentInstance } from '@tarojs/runtime';
+import { useShareAppMessage } from '@tarojs/taro';
 import GlobalLoading from '../../components/GlobalLoading/GlobalLoading';
 import { ConfigProvider } from '@nutui/nutui-react-taro';
 import NavBar from '../../components/NavBar/NavBar';
@@ -35,14 +36,24 @@ const Post = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const { userinfo } = useUserStore();
 
+  // 获取当前页面路由参数
+  const router = getCurrentInstance().router;
+  const postId = router?.params?.id;
+
+  // 添加分享功能
+  useShareAppMessage(() => {
+    return {
+      title: postInfo?.title || '精彩文章',
+      path: `/pages/post/post?id=${postId}`,
+      desc: postInfo?.excerpt,
+      imageUrl: postInfo?.img
+    };
+  });
+
   const fetchData = async () => {
     setLoading(true);
     try {
-      // 获取页面路由信息
-      const router = getCurrentInstance().router;
-      // 从 router 中解析参数
-      const { id } = router?.params || {};
-      const { spec, owner, categories, stats, status, content } = await getPostDetail(id);
+      const { spec, owner, categories, stats, status, content } = await getPostDetail(postId);
       const temp: any = {}
       temp.title = spec?.title
       temp.img = spec?.cover || generateRandomImgSrc(spec?.title)

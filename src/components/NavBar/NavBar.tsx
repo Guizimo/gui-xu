@@ -28,7 +28,6 @@ const NavBar = () => {
     }
   }, [statusBarHeight]);
 
-
   const openLayout = () => {
     runVibrateShort();
     setShowLayout(true);
@@ -38,17 +37,21 @@ const NavBar = () => {
     setShowLayout(false);
   };
 
-  return  <>
-    <View className={`nav-bar-container ${isScrolled ? 'isScroll' : ''}`} style={navStyle}>
-      <View className="nav-bar-title" onClick={openLayout}>
-        {userinfo?.basic?.title}
+  return (
+    <>
+      <View className={`nav-bar-container ${isScrolled ? 'isScroll' : ''}`} style={navStyle}>
+        {isScrolled ? (
+          <View className="nav-bar-title" onClick={openLayout}>
+            {userinfo?.basic?.title}
+          </View>
+        ) : null}
+        <View className="nav-bar-tools" style={{ marginRight: `${menuBarWidth}px` }}>
+          <BackTop />
+        </View>
       </View>
-      <View className="nav-bar-tools" style={{ marginRight: `${menuBarWidth}px` }}>
-        <BackTop />
-      </View>
-    </View>
-    <Layout show={showLayout} onClose={closeLayout} />
-  </>
-}
+      <Layout show={showLayout} onClose={closeLayout} />
+    </>
+  );
+};
 
 export default NavBar;
